@@ -1,6 +1,6 @@
 #include <ArduinoRobot.h>
-#include <Wire.h>
-#include <SPI.h>
+//#include <Wire.h>
+//#include <SPI.h>
 #include "Bussolo.h"
 
 Bussolo	bussolo;
