@@ -6,6 +6,7 @@
 class Bussolo {
 	public:
 		Bussolo();
+		void init(int direzione_iniziale);
 		void ruota(int rotazione, int velocita);
 		void avanza(int velocita);
 
