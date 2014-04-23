@@ -8,11 +8,11 @@ Bussolo	bussolo;
 
 void setup() {
 	int	key;
-
+	int	direzione_iniziale;
+	
 	Robot.begin();
 	Robot.beginTFT();
 	Robot.setCursor(0, 0);
-	Robot.print(String(Robot.compassRead()));
 
 	key = BUTTON_NONE;
 	while (key != BUTTON_MIDDLE) {
@@ -20,21 +20,22 @@ void setup() {
 		key = Robot.keyboardRead();
 	}
 
-	bussolo.init(Robot.compassRead());
+	direzione_iniziale = Robot.compassRead();
+	Robot.print(String(direzione_iniziale));
+	bussolo.init(direzione_iniziale);
+	delay(500);
 }
 
 void loop() {
-/*	
-	Robot.clearScreen();
-	Robot.setCursor(0, 0);
+	int	key;
 
-	Robot.print(String(Robot.compassRead()));
-*/
-	delay(500);
-	/*
+	key = Robot.keyboardRead();
+	if (key == BUTTON_LEFT) {
+		bussolo.ruota(-90, 100);
+	} else if (key == BUTTON_RIGHT) {
+		bussolo.ruota( 90, 100);
+	}
+
 	bussolo.avanza(100);
-	Robot.clearScreen();
-	Robot.setCursor(0, 0);
-	Robot.print("[" + String(bussolo.velocita()) + " - " + String(bussolo.velocitaAngolare()) + " [ " + String(bussolo.velocitaSx()) + " - " + String(bussolo.velocitaDx()) + "]");
-	*/
+	delay(100);
 }

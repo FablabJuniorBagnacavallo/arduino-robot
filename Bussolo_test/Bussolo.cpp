@@ -1,26 +1,17 @@
 #include <ArduinoRobot.h>
 #include "Bussolo.h"
 
-/*
-enum direzione {
-	orario,
-	antiorario
-};
-*/
-
 Bussolo::Bussolo() {
 //	direzione = Robot.compassRead();
 	
 }
 
 void Bussolo::init(int direzione_iniziale) {
-	Robot.print(">>>");
 	direzione = direzione_iniziale;
 	velocita_lineare = 0;
 	velocita_sx = 0;
 	velocita_dx = 0;
-	velocita_angolare = 10;
-	Robot.print("<<<");
+	velocita_angolare = 100;
 }
 
 void Bussolo::ruota(int rotazione, int velocita) {
@@ -41,30 +32,22 @@ int normalizza_direzione(int d) {
 }
 
 int Bussolo::delta_velocita (int delta) {
-
 	float delta_rad = ((float)delta)/180;
 	return asin(delta_rad)*velocita_angolare;
-
-//	return map(delta, -180, 180, -velocita_angolare, velocita_angolare);
 }
 
 void Bussolo::avanza(int velocita) {
-
 	int d;
 	int t;
 	int dv;
 	
-	d = normalizza_direzione(Robot.compassRead());
-	t = normalizza_direzione(direzione);
-	
-	dv = delta_velocita(t - d);
+	velocita_lineare = velocita;
+	dv = delta_velocita(normalizza_direzione((360 + direzione - Robot.compassRead()) % 360));
 	
 	velocita_sx = velocita_lineare + dv;
 	velocita_dx = velocita_lineare - dv;
 
-	Robot.motorsWrite(velocita_sx, velocita_dx);
-
-//	Robot.motorsWrite(120, 120);
+	Robot.motorsWrite(velocita_dx, velocita_sx);
 }
 
 int	Bussolo::velocita() {
