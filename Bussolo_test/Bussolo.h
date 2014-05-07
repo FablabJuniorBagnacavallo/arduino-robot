@@ -8,13 +8,20 @@ class Bussolo {
 		Bussolo();
 		void init(int direzione_iniziale);
 		void ruota(int rotazione, int velocita);
-		void avanza(int velocita);
+		void procedi(int velocita);
+		void stop();
+		
+		void gira(int rotazione);
+		void avanza(int distanza);
 
 		int	velocita();
 		int velocitaAngolare();
 		int velocitaSx();
 		int velocitaDx();
+		int target();
 		
+		void visualizza(String value, bool pulisci=false);
+
 	private:
 		int	direzione;
 		int	velocita_lineare;
